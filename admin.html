@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — The Khash House</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">KH</span>
+      <span class="brand-name">The Khash House</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="admin.html" aria-current="page">Admin</a>
+    </nav>
+  </header>
+
+  <!-- Passcode gate -->
+  <section id="gate" class="gate">
+    <form id="gate-form" class="gate-card">
+      <h1>Admin access</h1>
+      <p class="gate-note">Enter the admin passcode to manage products.</p>
+      <input type="password" id="passcode" placeholder="Passcode" autocomplete="current-password" />
+      <p id="gate-error" class="gate-error" hidden>Incorrect passcode.</p>
+      <button type="submit" class="btn btn--primary">Unlock</button>
+    </form>
+  </section>
+
+  <!-- Admin app (hidden until unlocked) -->
+  <main id="app" class="admin" hidden>
+    <section class="admin-head">
+      <h1 id="form-title">Add a product</h1>
+      <p class="admin-sub">Create and manage the products shown on your Shop page.</p>
+    </section>
+
+    <div class="admin-grid">
+      <!-- Form -->
+      <form id="product-form" class="product-form">
+        <input type="hidden" id="product-id" />
+
+        <label class="field">
+          <span>Product name</span>
+          <input type="text" id="name" required placeholder="e.g. Cashmere Overshirt" />
+        </label>
+
+        <label class="field">
+          <span>Description</span>
+          <textarea id="description" rows="4" placeholder="Describe the product…"></textarea>
+        </label>
+
+        <div class="field-row">
+          <label class="field">
+            <span>Price</span>
+            <input type="number" id="price" min="0" step="0.01" placeholder="0.00" />
+          </label>
+          <label class="field field--narrow">
+            <span>Currency</span>
+            <select id="currency">
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="GBP">GBP (£)</option>
+              <option value="EGP">EGP (E£)</option>
+              <option value="AED">AED (د.إ)</option>
+              <option value="SAR">SAR (﷼)</option>
+            </select>
+          </label>
+        </div>
+
+        <fieldset class="field">
+          <span class="field-legend">Sizes</span>
+          <div class="sizes" id="sizes">
+            <label><input type="checkbox" value="XS" /> XS</label>
+            <label><input type="checkbox" value="S" /> S</label>
+            <label><input type="checkbox" value="M" /> M</label>
+            <label><input type="checkbox" value="L" /> L</label>
+            <label><input type="checkbox" value="XL" /> XL</label>
+            <label><input type="checkbox" value="XXL" /> XXL</label>
+          </div>
+          <div class="custom-size">
+            <input type="text" id="custom-size" placeholder="Add a custom size (e.g. 42)" />
+            <button type="button" id="add-size" class="btn btn--ghost btn--sm">Add size</button>
+          </div>
+        </fieldset>
+
+        <label class="field">
+          <span>Photos</span>
+          <input type="file" id="photos" accept="image/*" multiple />
+          <small class="hint">You can select multiple images. Stored in your browser.</small>
+        </label>
+        <div id="preview" class="preview"></div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn--primary" id="submit-btn">Add product</button>
+          <button type="button" class="btn btn--ghost" id="reset-btn">Clear</button>
+        </div>
+        <p id="form-status" class="form-status" hidden></p>
+      </form>
+
+      <!-- Existing products -->
+      <section class="admin-list">
+        <h2>Your products (<span id="count">0</span>)</h2>
+        <div id="product-list" class="product-list"></div>
+        <p id="empty-list" class="empty-list">No products yet. Add your first one.</p>
+      </section>
+    </div>
+  </main>
+
+  <script src="store.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
